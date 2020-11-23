@@ -1,5 +1,8 @@
 # ServerSideReact
 
+1. [Let's get coding](#lets-get-coding)
+2. [Server Configuration](#server-configuration)
+
 The HTML `<noscript>` element defines a section of HTML to be inserted if a script type on the page is unsupported or if scripting is currently turned off in the browser. [doc](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/noscript)
 
 ## The web app flow
@@ -100,3 +103,5 @@ $ yarn add @types/react @types/react-dom -D
 $ mkdir src/client
 $ touch src/client/App.tsx
 ```
+
+## Server Configuration
