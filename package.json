@@ -4,7 +4,9 @@
   "main": "index.js",
   "repository": "git@github.com:cintiamh/ServerSideReact.git",
   "scripts": {
-    "dev:build:server": "webpack --config webpack.server.js"
+    "dev:server": "nodemon --watch build --exec \"node build/bundle.js\"",
+    "dev:build:client": "webpack --config webpack.client.js --watch",
+    "dev:build:server": "webpack --config webpack.server.js --watch"
   },
   "author": "Cintia Higashi <cintiamh@gmail.com>",
   "license": "MIT",

@@ -1,5 +1,8 @@
 # ServerSideReact
 
+1. [Let's get coding](#lets-get-coding)
+2. [Server Configuration](#server-configuration)
+
 The HTML `<noscript>` element defines a section of HTML to be inserted if a script type on the page is unsupported or if scripting is currently turned off in the browser. [doc](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/noscript)
 
 ## The web app flow
@@ -99,4 +102,37 @@ $ yarn add react react-dom -S
 $ yarn add @types/react @types/react-dom -D
 $ mkdir src/client
 $ touch src/client/App.tsx
+```
+
+## Server Configuration
+
+Hot reloading:
+```
+$ yarn add nodemon -D
+```
+
+Update scripts in package.json:
+```json
+{
+    "scripts": {
+        "dev:server": "nodemon --watch build --exec \"node build/bundle.js\"",
+        "dev:build:server": "webpack --config webpack.server.js --watch"
+    },
+}
+```
+
+At this point we are only displaying the HTML generated from the server side, but no dynamic React code is being executed.
+
+In Isomorphic Web Apps, it renders the HTML first, in `index.js` and then the `client.js` craws over the HTML and render the React components over the HTML. (`hydrate`)
+
+```
+$ touch webpack.client.js
+$ touch src/client/client.tsx
+```
+
+At this point, you need to run 3 commands:
+```
+$ yarn dev:build:server
+$ yarn dev:build:client
+$ yarn dev:server
 ```
