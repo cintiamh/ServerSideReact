@@ -208,4 +208,10 @@ $ yarn add axios -S
 $ yarn add @types/axios -D
 $ mkdir src/client/actions
 $ touch src/client/actions/index.ts
+$ mkdir src/client/reducers
+$ touch src/client/reducers/usersReducer.ts
+$ touch src/client/reducers/index.ts
+$ touch src/client/pages/UsersListPage.tsx
 ```
+
+At this point is ALL client side rendering. NO SERVER SIDE RENDERING.
