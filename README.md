@@ -2,6 +2,7 @@
 
 1. [Let's get coding](#lets-get-coding)
 2. [Server Configuration](#server-configuration)
+3. [Refactoring for cleaner code](#refactoring-for-cleaner-code)
 
 The HTML `<noscript>` element defines a section of HTML to be inserted if a script type on the page is unsupported or if scripting is currently turned off in the browser. [doc](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/noscript)
 
@@ -130,9 +131,43 @@ $ touch webpack.client.js
 $ touch src/client/client.tsx
 ```
 
+You need to tell express to treat the public folder as static (public)
+```javascript
+app.use(express.static('public'));
+```
+
 At this point, you need to run 3 commands:
 ```
 $ yarn dev:build:server
 $ yarn dev:build:client
 $ yarn dev:server
+```
+
+## Refactoring for cleaner code
+
+### Merging webpack config files
+
+We have a lot of duplicated logic between `webpack.server.js` and `webpack.client.js`.
+
+```
+$ yarn add webpack-merge -D
+$ touch webpack.base.js
+```
+
+Webpack will automatically import and bundle all imports. That's ok for browsers, but not necessary for server side.
+
+```
+$ yarn add webpack-node-externals -D
+```
+
+Single script start-up
+```
+$ yarn add npm-run-all -D
+```
+
+Using a renderer helper to split the logic that will take care of React render outside of server's `index.ts`.
+
+```
+$ mkdir src/helpers
+$ touch src/helpers/renderer.tsx
 ```

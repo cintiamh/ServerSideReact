@@ -1,27 +1,16 @@
 const path = require('path');
+const { merge } = require('webpack-merge');
+const baseConfig = require('./webpack.base');
 
-module.exports = {
-	// Tell webpack the root file of our client application
+const config = {
 	entry: './src/client/client.tsx',
-
-	// Tell webpack where to put the output file that is generated
 	output: {
 		filename: 'bundle.js',
-		path: path.resolve(__dirname, 'public')
+        path: path.resolve(__dirname, 'public')
     },
-    
     devServer: {
         contentBase: path.resolve(__dirname, 'public')
     },
-
-	// Tell webpack to run babel on every file it runs through
-	module: {
-		rules: [
-			{
-				test: /\.tsx?$/,
-                use: 'ts-loader',
-                exclude: /node_modules/,
-			}
-		]
-	}
 };
+
+module.exports = merge(baseConfig, config);
