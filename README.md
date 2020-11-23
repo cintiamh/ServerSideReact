@@ -3,6 +3,7 @@
 1. [Let's get coding](#lets-get-coding)
 2. [Server Configuration](#server-configuration)
 3. [Refactoring for cleaner code](#refactoring-for-cleaner-code)
+4. [Adding Navigation](#adding-navigation)
 
 The HTML `<noscript>` element defines a section of HTML to be inserted if a script type on the page is unsupported or if scripting is currently turned off in the browser. [doc](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/noscript)
 
@@ -170,4 +171,20 @@ Using a renderer helper to split the logic that will take care of React render o
 ```
 $ mkdir src/helpers
 $ touch src/helpers/renderer.tsx
+```
+
+## Adding Navigation
+
+Implementing React Router support with 2 routing tiers:
+
+* `StaticRouter`: Express router handler - will pass the routing decisions to React Router
+* `BrowserRouter`: Client side React Router - running in a browser via hydration.
+
+Building pages:
+```
+$ yarn add react-router-config react-router-dom -S
+$ yarn add @types/react-router-config @types/react-router-dom -D
+$ mkdir src/client/pages
+$ touch src/client/pages/HomePage.tsx
+$ touch src/client/Routes.tsx
 ```

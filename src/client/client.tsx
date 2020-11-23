@@ -1,7 +1,12 @@
 // Startup point for the client side application
 import React from 'react';
 import ReactDOM from 'react-dom';
-import App from './App';
+import { BrowserRouter } from 'react-router-dom';
+import Routes from './Routes';
 
-// there is already HTML from server
-ReactDOM.hydrate(<App />, document.getElementById('root'));
+ReactDOM.hydrate(
+    <BrowserRouter>
+        <Routes />
+    </BrowserRouter>,
+    document.getElementById('root')
+);
