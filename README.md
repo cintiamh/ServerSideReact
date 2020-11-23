@@ -4,6 +4,7 @@
 2. [Server Configuration](#server-configuration)
 3. [Refactoring for cleaner code](#refactoring-for-cleaner-code)
 4. [Adding Navigation](#adding-navigation)
+5. [Integrating support for Redux](#integrating-support-for-redux)
 
 The HTML `<noscript>` element defines a section of HTML to be inserted if a script type on the page is unsupported or if scripting is currently turned off in the browser. [doc](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/noscript)
 
@@ -187,4 +188,24 @@ $ yarn add @types/react-router-config @types/react-router-dom -D
 $ mkdir src/client/pages
 $ touch src/client/pages/HomePage.tsx
 $ touch src/client/Routes.tsx
+```
+
+## Integrating support for Redux
+
+API server: http://react-ssr-api.herokuapp.com/
+
+Big challenges with SSR Redux:
+* Redux needs different configuration on browser and server sides.
+* Aspects of authentication needs to be handled on server.
+* Need some way to detect when all initial data load action creators are completed on server.
+* Need state hydration on the browser.
+
+```
+$ yarn add react-redux redux redux-thunk -S
+$ yarn add @types/react-redux @types/redux @types/redux-thunk -D
+$ touch src/helpers/createStore.ts
+$ yarn add axios -S
+$ yarn add @types/axios -D
+$ mkdir src/client/actions
+$ touch src/client/actions/index.ts
 ```
