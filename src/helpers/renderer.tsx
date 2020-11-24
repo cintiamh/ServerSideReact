@@ -8,10 +8,10 @@ import { Request } from 'express';
 import { Store } from 'redux';
 import serialize from 'serialize-javascript';
 
-export default (req: Request, store: Store) => {
+export default (req: Request, store: Store, context) => {
     const content = renderToString(
         <Provider store={store}>
-            <StaticRouter location={req.path} context={{}}>
+            <StaticRouter location={req.path} context={context}>
                 <div>{ renderRoutes(Routes) }</div>
             </StaticRouter>
         </Provider>

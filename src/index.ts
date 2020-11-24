@@ -4,6 +4,7 @@ import proxy from 'express-http-proxy';
 import Routes from './client/Routes';
 import renderer from './helpers/renderer';
 import createStore from './helpers/createStore';
+import { render } from 'react-dom';
 
 const app = express();
 
@@ -24,7 +25,14 @@ app.get('*', (req, res) => {
     route.loadData ? route.loadData(store) : null
   );
 
-  Promise.all(promises).then(() => res.send(renderer(req, store)));
+  Promise.all(promises).then(() => {
+    const context = {};
+    const content = renderer(req, store, context);
+    if (context.notFound) {
+      res.status(404);
+    }
+    res.send(content);
+  });
 });
 
 app.listen(3000, () => {
