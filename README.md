@@ -7,6 +7,7 @@
 5. [Integrating support for Redux](#integrating-support-for-redux)
 6. [Server Side Data Loading](#server-side-data-loading)
 7. [Authentication in a Server Side rendering world](#authentication-in-a-server-side-rendering-world)
+8. [Error Handling](#error-handling)
 
 The HTML `<noscript>` element defines a section of HTML to be inserted if a script type on the page is unsupported or if scripting is currently turned off in the browser. [doc](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/noscript)
 
@@ -283,3 +284,15 @@ $ mkdir src/client/components
 $ touch src/client/components/Header.tsx
 $ touch src/client/reducers/authReducer.ts
 ```
+
+## Error Handling
+
+Handling not found pages 404.
+
+Create a new page:
+
+```
+$ touch src/client/pages/NotFoundPage.tsx
+```
+
+And now we need to mark the response as 404 using Express `res.status(404)`.
