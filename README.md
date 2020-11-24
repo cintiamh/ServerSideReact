@@ -5,6 +5,7 @@
 3. [Refactoring for cleaner code](#refactoring-for-cleaner-code)
 4. [Adding Navigation](#adding-navigation)
 5. [Integrating support for Redux](#integrating-support-for-redux)
+6. [Server Side Data Loading](#server-side-data-loading)
 
 The HTML `<noscript>` element defines a section of HTML to be inserted if a script type on the page is unsupported or if scripting is currently turned off in the browser. [doc](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/noscript)
 
@@ -215,3 +216,46 @@ $ touch src/client/pages/UsersListPage.tsx
 ```
 
 At this point is ALL client side rendering. NO SERVER SIDE RENDERING.
+
+## Server Side Data Loading
+
+`componentDidMount` is not called on server side, only on JS side, so the approach above won't fetch any data on server side.
+
+To know which component needs to load some data, we can add a `loadData` to the page's component and call it before rendering.
+
+The advantage is to load the app only once.
+
+We can achieve that using React Router Config: https://github.com/ReactTraining/react-router#readme
+
+But we now need to define the routes in a object, not JSX (`<Route />`).
+
+src/index.js
+```javascript
+// this will have a list of components that it will try to render.
+matchRoutes(Routes, req.path);
+```
+
+Changes to load data before rendering on the browser:
+* component files: new `loadData` function that will be called from the server.
+* routes file: for each path, there is a component and a `loadData` function if you need to load data before rendering.
+* server index.js: takes the incoming request path and figure out what components will be shown. Run each component's `loadData` function.
+
+### Need state rehydration on client side
+
+At this point SSR and client are not matching.
+1. Server Redux fetches data
+2. Page rendered on server
+3. Store dumps its state into HTML template
+4. Page HTML sent to browser
+5. Client bundle.js sent to browser
+6. Bundle
+7. Client store initialized with state that was dumped in page
+8. Page rendered with store from client side Redux
+
+Attaching the JSON data into `window.INITIAL_STATE` to be accessible from client side.
+
+But this is not safe, so we'll use `serialize-javascript` to escape any malicious JS code from JSON.
+
+```
+$ yarn add serialize-javascript -S
+```
