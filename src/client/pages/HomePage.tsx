@@ -1,6 +1,6 @@
 import React from 'react';
 
-function App() {
+function HomePage() {
     return (
         <div>
             Welcome Home!
@@ -9,4 +9,6 @@ function App() {
     );
 }
 
-export default App;
+export default {
+    component: HomePage
+};

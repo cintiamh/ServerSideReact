@@ -2,12 +2,18 @@ import React from 'react';
 import { Route } from 'react-router-dom';
 import HomePage from './pages/HomePage';
 import UsersListPage from './pages/UsersListPage';
+import { RouteConfig } from 'react-router-config';
 
-export default () => {
-	return(
-		<div>
-            <Route exact path="/" component={HomePage} />
-            <Route path="/users" component={UsersListPage} />
-		</div>
-	);
-};
+const routeConfig: RouteConfig[] = [
+    {
+        ...HomePage,
+        path: '/',
+        exact: true
+    },
+    {
+        ...UsersListPage,
+        path: '/users'
+    }
+];
+
+export default routeConfig;
