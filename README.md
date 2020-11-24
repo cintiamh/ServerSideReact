@@ -6,6 +6,7 @@
 4. [Adding Navigation](#adding-navigation)
 5. [Integrating support for Redux](#integrating-support-for-redux)
 6. [Server Side Data Loading](#server-side-data-loading)
+7. [Authentication in a Server Side rendering world](#authentication-in-a-server-side-rendering-world)
 
 The HTML `<noscript>` element defines a section of HTML to be inserted if a script type on the page is unsupported or if scripting is currently turned off in the browser. [doc](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/noscript)
 
@@ -258,4 +259,27 @@ But this is not safe, so we'll use `serialize-javascript` to escape any maliciou
 
 ```
 $ yarn add serialize-javascript -S
+$ yarn add @types/serialize-javascript -D
+```
+
+## Authentication in a Server Side rendering world
+
+There is a auth contract between the browser and the API server. The contract can be a cookie, session, key, etc.
+
+The first problem is that if the auth is made with an API, this won't automatically work because of different domains.
+
+We'll have a proxy between the API and our server, so the browser only knows about our server and is not aware of the API. The server will handle the auth cookie.
+
+Another solution is JSON Web Token (JWT), we need to manually attach JWT to each request to the server. This would make 2 requests instead of single one.
+
+```
+$ yarn add express-http-proxy -S
+$ yarn add @types/express-http-proxy -D
+```
+
+Create some common components:
+```
+$ mkdir src/client/components
+$ touch src/client/components/Header.tsx
+$ touch src/client/reducers/authReducer.ts
 ```
