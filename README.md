@@ -8,6 +8,7 @@
 6. [Server Side Data Loading](#server-side-data-loading)
 7. [Authentication in a Server Side rendering world](#authentication-in-a-server-side-rendering-world)
 8. [Error Handling](#error-handling)
+9. [Adding better SEO support](#adding-better-seo-support)
 
 The HTML `<noscript>` element defines a section of HTML to be inserted if a script type on the page is unsupported or if scripting is currently turned off in the browser. [doc](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/noscript)
 
@@ -296,3 +297,28 @@ $ touch src/client/pages/NotFoundPage.tsx
 ```
 
 And now we need to mark the response as 404 using Express `res.status(404)`.
+
+## Adding better SEO support
+
+[The Open Graph protocol](https://ogp.me/) enables any web page to become rich object in a social graph.
+
+This helps to improve SEO in social platforms like FB and TW.
+
+Using [React Helmet](https://github.com/nfl/react-helmet) to change the meta tags depending on the page we're in our app.
+
+1. User visits page
+2. we render helmet tags
+3. helmet loads up all the meta tags we want to show
+4. we dump helmet's tags directly into HTML template
+
+### Basic metadata
+
+* `og:title`
+* `og:type`
+* `og:image`
+* `og:url`
+
+```
+$ yarn add react-helmet -S
+$ yarn add @types/react-helmet -D
+```
