@@ -4,7 +4,6 @@ import proxy from 'express-http-proxy';
 import Routes from './client/Routes';
 import renderer from './helpers/renderer';
 import createStore from './helpers/createStore';
-import { render } from 'react-dom';
 
 const app = express();
 
@@ -23,11 +22,21 @@ app.get('*', (req, res) => {
 
   const promises = matchRoutes(Routes, req.path).map(({ route }) => 
     route.loadData ? route.loadData(store) : null
-  );
+  ).map(promise => {
+    if (promise) {
+      return new Promise((resolve, reject) => {
+        // always resolve it, so Promise.all won't bail early
+        promise.then(resolve).catch(resolve);
+      })
+    }
+  });
 
   Promise.all(promises).then(() => {
     const context = {};
     const content = renderer(req, store, context);
+    if (context.url) {
+      return res.redirect(301, context.url);
+    }
     if (context.notFound) {
       res.status(404);
     }
