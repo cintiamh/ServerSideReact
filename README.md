@@ -12,6 +12,8 @@
 
 The HTML `<noscript>` element defines a section of HTML to be inserted if a script type on the page is unsupported or if scripting is currently turned off in the browser. [doc](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/noscript)
 
+Notes from https://github.com/StephenGrider/ReactSSRCasts
+
 ## The web app flow
 
 ### Traditional React App
